@@ -1,153 +1,185 @@
 # MedBuddy
 
-**MedBuddy** is a web-based AI-powered medical consultation platform designed to help users assess symptoms, receive personalized health advice, and access premium health services online. The project aligns with **SDG 3: Good Health and Well-being** and aims to make healthcare more accessible and convenient through technology.
+**MedBuddy** is an AI-assisted health consultation platform with a FastAPI backend and static HTML/CSS/JavaScript frontend. It provides symptom checking, user authentication with JWT tokens, health tips, and Stripe-based premium plans.
 
----
-
-## Table of Contents
-
-1. [Features](#features)  
-2. [Tech Stack](#tech-stack)  
-3. [Architecture](#architecture)  
-4. [Getting Started](#getting-started)  
- # MedBuddy
-
-MedBuddy is a small AI-assisted health consultation prototype: a FastAPI backend + static frontend (HTML/CSS/JS). It provides a symptom checker, user authentication, health tips, and Stripe-based premium plans.
-
-This README explains how to set up, run and troubleshoot the project locally (Windows-focused), and documents the main API endpoints used by the frontend.
+This README explains how to set up, run, and troubleshoot the project locally (Windows-focused).
 
 ---
 
 ## Contents
 
-- Features
-- Tech stack
-- Quick start (Windows)
-- Development setup (detailed)
-- Database setup
-- Environment variables (.env)
-- Running the backend
-- Running the frontend
-- API endpoints (paths)
-- Troubleshooting
-- Notes & tips
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Quick Start (Windows)](#quick-start-windows)
+- [Development Setup](#development-setup)
+- [Database Setup](#database-setup)
+- [Environment Variables](#environment-variables)
+- [Running the Backend](#running-the-backend)
+- [Running the Frontend](#running-the-frontend)
+- [API Endpoints](#api-endpoints)
+- [Troubleshooting](#troubleshooting)
+- [Quick Test with cURL](#quick-test-with-curl)
+- [Helper Files](#helper-files)
 
 ---
 
 ## Features
 
-- Symptom checker (simple rule-based analyzer)
-- User signup/login with password hashing and JWT token generation
-- Health tips endpoint and a floating quotes widget on the frontend
-- Premium plans powered by Stripe checkout sessions
-- MySQL + SQLAlchemy models for users, tips and premium plans
+- ✅ Symptom checker (rule-based analyzer)
+- ✅ User signup/login with bcrypt password hashing and JWT tokens
+- ✅ Health tips endpoint with random and all tips endpoints
+- ✅ Premium plans with Stripe checkout integration
+- ✅ MySQL database with SQLAlchemy ORM
+- ✅ Auto-generated API documentation at `/docs`
+- ✅ CORS configured for frontend access
 
 ---
 
-## Tech stack
+## Tech Stack
 
-- Backend: Python 3.11+ (FastAPI, SQLAlchemy)
-- Auth: `bcrypt` for password hashing + JWT tokens
-- Database: MySQL (tested with `mysql-connector-python`)
-- Frontend: Static HTML/CSS/Vanilla JS
-- Payments: Stripe (server-side checkout sessions)
-- Config: `python-dotenv` for local environment variables
+- **Backend:** Python 3.11+ (FastAPI, SQLAlchemy)
+- **Auth:** `bcrypt` for password hashing + JWT tokens
+- **Database:** MySQL with `mysql-connector-python`
+- **Frontend:** Static HTML/CSS/Vanilla JavaScript
+- **Payments:** Stripe (server-side checkout sessions)
+- **Config:** `python-dotenv` for environment variables
 
 ---
 
-## Quick start (Windows)
+## Quick Start (Windows)
 
-1. Open PowerShell and clone the repo:
+### 1. Clone and navigate to backend
 
 ```powershell
 git clone https://github.com/yourusername/MedBuddy.git
 cd MedBuddy\backend
 ```
 
-2. Create and activate a virtual environment (Windows):
+### 2. Create and activate virtual environment
 
 ```powershell
 python -m venv venv
 .\venv\Scripts\activate
 ```
 
-3. Install Python dependencies:
+### 3. Install dependencies
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-4. Create a `.env` file in the `backend` folder (see "Environment variables" section below).
+### 4. Create `.env` file with database credentials
 
-5. Create the MySQL database (example name: `medbuddy_db`) and run the DB init script:
-
-```powershell
-# Make sure your MySQL server is running and credentials in database.py match
-python init_db.py
-```
-
-6. Start the backend server:
+Copy `.env.example` to `.env` and fill in your MySQL credentials:
 
 ```powershell
-uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+copy .env.example .env
 ```
 
-7. Open the frontend static files with Live Server (VS Code extension) or any static server that serves files from the `frontend/` folder, or just open the files in your browser. If using Live Server, it commonly serves at `http://127.0.0.1:5500/`.
+Edit `.env` with your database password and Stripe keys.
 
----
-
-## Development setup (details)
-
-- Backend working directory: `d:\Medbuddy\backend`
-- Frontend files: `d:\Medbuddy\frontend` (open the .html files directly or use a static server)
-- Virtual environment commands (Windows):
-    - Activate: `.\venv\Scripts\activate`
-    - Use the venv Python explicitly if not activated: `.\venv\Scripts\python <script>.py`
-
-Important: run backend commands using the venv Python to ensure installed packages are available.
-
----
-
-## Database setup
-
-The project uses SQLAlchemy models in `backend/models.py`. A helper `init_db.py` drops and recreates tables for development.
-
-1. Ensure MySQL is running and `backend/database.py` connection string (`SQLALCHEMY_DATABASE_URL`) matches your user/password and database name.
-2. Create the database in MySQL (example):
+### 5. Create MySQL database
 
 ```sql
 CREATE DATABASE medbuddy_db;
 ```
 
-3. Run the initialization script to create tables:
+### 6. Initialize database tables
 
 ```powershell
-cd d:\Medbuddy\backend
-.\venv\Scripts\python init_db.py
+python init_db.py
 ```
 
-Note: `init_db.py` will drop existing tables. Use with care and only during development.
+### 7. Start the backend server
+
+```powershell
+uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+Visit `http://127.0.0.1:8000/docs` for interactive API documentation.
+
+### 8. Start the frontend
+
+Open `frontend/index.html` with Live Server (VS Code extension) or any local server at `http://127.0.0.1:5500/`
 
 ---
 
-## Environment variables (.env)
+## Development Setup
 
-Create a `.env` file in `backend/` with the following (example):
+**Backend working directory:** `d:\Medbuddy\backend`  
+**Frontend files:** `d:\Medbuddy\frontend`
+
+### Virtual environment commands (Windows):
+
+- Activate: `.\venv\Scripts\activate`
+- Deactivate: `deactivate`
+- Use venv Python directly: `.\venv\Scripts\python <script>.py`
+
+⚠️ **Important:** Always run backend commands with the venv Python to ensure installed packages are available.
+
+---
+
+## Database Setup
+
+The project uses SQLAlchemy models in `backend/models.py`. The `init_db.py` helper script initializes all tables.
+
+### Steps:
+
+1. **Ensure MySQL is running** and accessible
+
+2. **Create the database:**
+
+```sql
+CREATE DATABASE medbuddy_db;
+```
+
+3. **Update credentials in `.env`:**
 
 ```
+DB_USER=root
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_NAME=medbuddy_db
+```
+
+4. **Run the initialization script:**
+
+```powershell
+python init_db.py
+```
+
+⚠️ **Note:** `init_db.py` drops and recreates tables — use only in development.
+
+---
+
+## Environment Variables
+
+Create a `.env` file in `backend/` based on `.env.example`:
+
+```bash
+# Database credentials (REQUIRED)
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_HOST=localhost
+DB_NAME=medbuddy_db
+
+# Stripe API keys (get from https://dashboard.stripe.com/apikeys)
 STRIPE_SECRET_KEY=sk_test_XXXXXXXXXXXXXXXX
 STRIPE_PUBLISHABLE_KEY=pk_test_XXXXXXXXXXXXXXXX
-STRIPE_SUCCESS_URL=http://127.0.0.1:5500/success.html
+
+# Stripe redirect URLs
+STRIPE_SUCCESS_URL=http://127.0.0.1:5500/index.html
 STRIPE_CANCEL_URL=http://127.0.0.1:5500/premium.html
-# Optionally add a JWT secret if you want to override the default
-# JWT_SECRET_KEY=your_jwt_secret
+
+# Optional: Frontend URL
+FRONTEND_URL=http://127.0.0.1:5500
 ```
 
-The project also reads database credentials from `database.py` directly (update `SQLALCHEMY_DATABASE_URL` if needed).
+⚠️ **SECURITY:** Never commit `.env` to version control. The `.gitignore` file protects it.
 
 ---
 
-## Running the backend
+## Running the Backend
 
 From `d:\Medbuddy\backend` with venv activated:
 
@@ -155,114 +187,189 @@ From `d:\Medbuddy\backend` with venv activated:
 uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-Visit `http://127.0.0.1:8000/docs` to view the auto-generated API docs.
+### What to see:
+
+- Server starts on `http://127.0.0.1:8000`
+- API docs available at `http://127.0.0.1:8000/docs`
+- Database tables created (if first run)
+- CORS configured for frontend origin
 
 ---
 
-## Running the frontend
+## Running the Frontend
 
-- Option A (recommended during development): Install Live Server (VS Code) and "Open with Live Server" the `frontend` folder root. It usually serves at `http://127.0.0.1:5500/`.
-- Option B: Right-click each `.html` file and open in browser (some features expect the site to be served from a local server for CORS/preflight behavior).
+**Option A (Recommended):** Use Live Server (VS Code extension)
+
+1. Right-click `frontend/` folder
+2. Select "Open with Live Server"
+3. Opens at `http://127.0.0.1:5500/`
+
+**Option B:** Any local HTTP server
+
+```powershell
+# Python built-in server example
+cd frontend
+python -m http.server 5500
+```
 
 ---
 
-## API endpoints (important routes)
+## API Endpoints
 
-These are the endpoints the frontend expects (relative to the backend base `http://127.0.0.1:8000`):
+### Authentication
 
-- POST `/auth/signup` — Create user. JSON body: `{ "username": "...", "email": "...", "password": "..." }`
-- POST `/auth/login` — Login. JSON body: `{ "username": "...", "password": "..." }`
-- POST `/symptom/analyze` — Symptom analysis. JSON: `{ "symptoms": "...", "user_id": <int or null> }`
-- GET `/api/tips/random` — Returns a random health tip (used on the home page)
-- GET `/api/tips/all` — Returns all tips
-- POST `/api/payments/create-checkout-session` — Create Stripe checkout session. JSON: `{ "plan": "Gold" }`
-- Premium admin endpoints: `/premium/*` (create/list/subscribe/status) — used by server-side admin flows
+- **POST** `/auth/signup` — Create user
+  - Body: `{ "username": "...", "email": "...", "password": "..." }`
+  - Returns: `{ "id": 1, "username": "...", "email": "..." }`
 
-Open `/docs` for a browsable set of API schemas when server is running.
+- **POST** `/auth/login` — Login and get JWT token
+  - Body: `{ "username": "...", "password": "..." }`
+  - Returns: `{ "access_token": "...", "token_type": "bearer" }`
+
+### Symptom Checker
+
+- **POST** `/symptom/analyze` — Analyze symptoms
+  - Body: `{ "symptoms": "fever, cough", "user_id": null }`
+  - Returns: `{ "severity": "moderate", "recommendations": [...] }`
+
+### Health Tips
+
+- **GET** `/api/tips/random` — Get random health tip
+  - Returns: `{ "id": 1, "title": "...", "content": "..." }`
+
+- **GET** `/api/tips/all` — Get all health tips
+  - Returns: `{ "tips": [...], "total": 5 }`
+
+### Premium Plans
+
+- **GET** `/premium/plans` — List all premium plans
+  - Returns: `{ "plans": [...], "total": 3 }`
+
+- **POST** `/premium/subscribe/{user_id}/{plan_id}` — Subscribe user to plan
+  - Returns: `{ "user_id": 1, "plan_name": "Premium Monthly", "status": "subscribed" }`
+
+- **GET** `/premium/status/{user_id}` — Get subscription status
+  - Returns: `{ "is_premium": true, "plan_name": "Premium Monthly" }`
+
+### Payments
+
+- **POST** `/api/payments/create-checkout-session` — Create Stripe checkout
+  - Body: `{ "user_id": 1, "plan_id": 1, "plan_name": "Premium Monthly", "amount": 999 }`
+  - Returns: `{ "session_id": "...", "checkout_url": "...", "status": "success" }`
 
 ---
 
 ## Troubleshooting
 
-Common issues and fixes:
+### CORS blocked (browser error: No 'Access-Control-Allow-Origin' header)
 
-- CORS blocked requests (browser error: **No 'Access-Control-Allow-Origin' header**):
-    - Ensure the backend is running and did not crash (a 500 will cause the browser to receive no CORS headers).
-    - Start the backend from the project's venv: `.\venv\Scripts\activate` then `uvicorn main:app --reload`.
-    - Hard-refresh the frontend (Ctrl+F5) after restarting backend.
+- Ensure backend is running: `uvicorn main:app --reload`
+- Hard-refresh frontend: `Ctrl+F5`
+- Verify frontend is served from `http://127.0.0.1:5500`
+- Check browser console for specific error
 
-- 500 errors on signup (bcrypt / password length):
-    - `bcrypt` has a 72-byte limit. The backend truncates passwords to 72 bytes before hashing. If you hit an error, make sure your password is a normal UTF-8 string and shorter than ~72 bytes.
+### 500 errors on signup
 
-- Missing Python packages (ImportError):
-    - Activate venv before running code: `.\venv\Scripts\activate`.
-    - Install requirements: `pip install -r requirements.txt`.
+- Bcrypt has a 72-byte limit on passwords
+- Backend automatically truncates passwords before hashing
+- Use normal UTF-8 passwords shorter than ~72 bytes
 
-- Stripe issues:
-    - Ensure `STRIPE_SECRET_KEY` is set in `.env` and that test keys are used for development.
+### Missing Python packages (ImportError)
 
-- Database errors (unknown column etc.):
-    - Run `init_db.py` to recreate tables if models changed during development. This will drop and recreate tables — only do this in development.
+```powershell
+# Activate venv
+.\venv\Scripts\activate
+
+# Install/reinstall requirements
+pip install -r requirements.txt
+```
+
+### Stripe errors
+
+- Ensure `.env` has `STRIPE_SECRET_KEY` set
+- Use **test keys** for development (start with `sk_test_` and `pk_test_`)
+- Visit https://dashboard.stripe.com/apikeys for your keys
+
+### Database errors (unknown column, etc.)
+
+```powershell
+# Recreate tables (development only - deletes all data)
+python init_db.py
+```
 
 ---
 
-## Quick test with curl (examples)
+## Quick Test with cURL
 
-Use these commands from a shell on the machine that can reach the backend (or use WSL/PowerShell). Replace `127.0.0.1:8000` if your backend uses a different host/port.
+Use these commands from PowerShell to test endpoints. Replace `127.0.0.1:8000` if needed.
 
-- Signup (create user):
+### Signup
 
-```bash
-curl -X POST http://127.0.0.1:8000/auth/signup \
-    -H "Content-Type: application/json" \
+```powershell
+curl -X POST http://127.0.0.1:8000/auth/signup `
+    -H "Content-Type: application/json" `
     -d '{"username":"testuser","email":"test@example.com","password":"passwd123"}'
 ```
 
-- Login (get token):
+### Login
 
-```bash
-curl -X POST http://127.0.0.1:8000/auth/login \
-    -H "Content-Type: application/json" \
+```powershell
+curl -X POST http://127.0.0.1:8000/auth/login `
+    -H "Content-Type: application/json" `
     -d '{"username":"testuser","password":"passwd123"}'
 ```
 
-- Get a random tip:
+### Get random health tip
 
-```bash
+```powershell
 curl http://127.0.0.1:8000/api/tips/random
 ```
 
-- Create Stripe checkout session (example):
+### Create Stripe checkout session
 
-```bash
-curl -X POST http://127.0.0.1:8000/api/payments/create-checkout-session \
-    -H "Content-Type: application/json" \
-    -d '{"plan":"Gold"}'
+```powershell
+curl -X POST http://127.0.0.1:8000/api/payments/create-checkout-session `
+    -H "Content-Type: application/json" `
+    -d '{"user_id":1,"plan_id":1,"plan_name":"Premium Monthly","amount":999}'
 ```
 
-Note: cURL requests bypass browser CORS limitations and are useful for debugging server-side behavior.
+### Get subscription status
+
+```powershell
+curl http://127.0.0.1:8000/premium/status/1
+```
 
 ---
 
-## Added helper files
+## Helper Files
 
-- `backend/.env.example` — template env vars to copy into `backend/.env`.
-- `backend/setup.ps1` — PowerShell helper to create venv, install deps, copy `.env.example` -> `.env`, run `init_db.py`, and start the server (development only). Edit DB credentials in `database.py` or set env vars before running.
-- `CONTRIBUTING.md` — local dev workflow and guidelines.
-- `LICENSE` — MIT license file.
-
-
-## Notes & tips
-
-- Always run backend with the virtual environment Python to avoid missing package issues.
-- Use `http://127.0.0.1:5500` (Live Server) as the frontend origin during development — CORS is configured to allow this.
-- The repository is a prototype/demo; it is not production hardened.
+- **`.env.example`** — Template for environment variables. Copy to `.env` and fill in credentials.
+- **`.gitignore`** — Prevents sensitive files (`.env`, `venv/`, `__pycache__/`) from being committed.
+- **`init_db.py`** — Database initialization script. Creates and optionally seeds sample data.
+- **`setup.ps1`** — PowerShell helper to automate setup (optional).
+- **`CONTRIBUTING.md`** — Local development workflow and contribution guidelines.
+- **`LICENSE`** — MIT license file.
 
 ---
 
-If you'd like, I can:
-- Add a small `Makefile` / PowerShell script to automate venv setup, install and run
-- Add a minimal `.env.example` file in `backend/` listing the env vars to copy
-- Add a CONTRIBUTING.md with instructions for adding new routes or models
+## Security Notes
 
- Tell me which of those you'd like me to add next.
+⚠️ **Before Production:**
+
+1. ✅ Database credentials are read from `.env` (not hardcoded) — DONE
+2. ✅ `.gitignore` prevents `.env` from being committed — DONE
+3. ❌ Rotate exposed password if it was ever visible in git history
+4. Use **strong** database passwords
+5. Use **live** Stripe keys (not test keys)
+6. Enable HTTPS on production
+7. Run FastAPI behind a production WSGI server (e.g., Gunicorn)
+8. Implement rate limiting and input validation for production
+
+---
+
+## Notes
+
+- The backend is a prototype/demo and is **not production-hardened**.
+- Always use the virtual environment Python to avoid missing package errors.
+- CORS is configured to allow `http://127.0.0.1:5500` (Live Server) during development.
+- The `.gitignore` file protects sensitive files from being committed.
