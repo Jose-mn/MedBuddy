@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - MedConsult AI</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    p {
+      margin: 15px 0;
+    }
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #219150;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Checkout</h1>
+    <p id="planName">Loading plan...</p>
+    <p id="planPrice"></p>
+    <button>Proceed to Payment</button>
+  </div>
+
+  <script>
+    // Get URL parameters (plan name & price)
+    const urlParams = new URLSearchParams(window.location.search);
+    const plan = urlParams.get('plan');
+    const price = urlParams.get('price');
+
+    document.getElementById('planName').textContent = plan + " Plan";
+    document.getElementById('planPrice').textContent = "Price: " + price;
+  </script>
+</body>
+</html>

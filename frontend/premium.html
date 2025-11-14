@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Plans - MedConsult AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    .plans {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .plan {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 260px;
+      padding: 25px;
+      transition: transform 0.3s ease;
+    }
+    .plan:hover {
+      transform: scale(1.05);
+    }
+    .plan h2 {
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 22px;
+      color: #27ae60;
+      margin-bottom: 15px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Choose Your Premium Plan</h1>
+  <div class="plans">
+    <div class="plan">
+      <h2>Bronze</h2>
+      <p class="price">KES 499 / month</p>
+      <p>Basic access to AI consultations.</p>
+      <button onclick="pay('Bronze')">Buy Bronze</button>
+
+    </div>
+    <div class="plan">
+      <h2>Gold</h2>
+      <p class="price">KES 999 / month</p>
+      <p>Faster diagnosis + chat priority.</p>
+      <button onclick="pay('Gold')">Buy Gold</button>
+
+    </div>
+    <div class="plan">
+      <h2>Diamond</h2>
+      <p class="price">KES 1,999 / month</p>
+      <p>Unlimited AI consultations + 24/7 support.</p>
+      <button onclick="pay('Diamond')">Buy Diamond</button>
+
+    </div>
+  </div>
+  <script>
+async function pay(plan) {
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/api/payments/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ plan: plan })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert("Payment Error: " + (data.detail || "Could not start payment."));
+      return;
+    }
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Error: URL not received from backend.");
+    }
+  } catch (err) {
+    alert("Network Error: Backend not reachable.");
+  }
+}
+</script>
+
+
+</body>
+</html>

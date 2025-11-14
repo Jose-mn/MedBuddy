@@ -346,3 +346,99 @@ footer {
     margin: 1rem 0;
     border-left: 4px solid #c62828;
 }
+
+/* Premium Section */
+.premium-section {
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: #fff;
+  text-align: center;
+  padding: 60px 20px;
+  border-radius: 20px 20px 0 0;
+  margin-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  animation: fadeInDown 0.8s ease forwards;
+}
+
+.premium-section p {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  color: #e0f7fa;
+  animation: fadeInDown 1s ease forwards;
+}
+
+.premium-plans-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.plan-card {
+  background: #ffffff;
+  color: #333;
+  width: 280px;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.plan-card.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.plan-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 183, 255, 0.4);
+}
+
+.plan-card h3 {
+  color: #0077b6;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.plan-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.subscribe-btn {
+  margin-top: 10px;
+  background: linear-gradient(90deg, #00b4d8, #48cae4);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  box-shadow: 0 0 10px rgba(0, 180, 216, 0.6);
+}
+
+.subscribe-btn:hover {
+  background: linear-gradient(90deg, #48cae4, #00b4d8);
+  box-shadow: 0 0 20px rgba(0, 180, 216, 0.8);
+  transform: translateY(-2px);
+}
+
+/* Fade and slide animation for title */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

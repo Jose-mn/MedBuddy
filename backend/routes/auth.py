@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from passlib.context import CryptContext
+import bcrypt
 from database import get_db
 from models import User
 from schemas import UserCreate, UserResponse, LoginRequest, Token
@@ -9,16 +9,27 @@ from datetime import datetime, timedelta
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = "medconsult_secret_key_12345"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    # Ensure input is bytes and truncate to 72 bytes
+    if isinstance(plain_password, str):
+        plain_password = plain_password.encode('utf-8')
+    truncated = plain_password[:72]
+    try:
+        return bcrypt.checkpw(truncated, hashed_password.encode('utf-8'))
+    except Exception:
+        return False
 
 def get_password_hash(password):
-    return pwd_context.hash(password[:72])
+    # Ensure input is bytes and truncate to 72 bytes before hashing
+    if isinstance(password, str):
+        password = password.encode('utf-8')
+    truncated = password[:72]
+    hashed = bcrypt.hashpw(truncated, bcrypt.gensalt())
+    return hashed.decode('utf-8')
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
