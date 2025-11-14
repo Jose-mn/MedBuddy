@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker - MedConsult AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <a href="index.html" style="color: white; text-decoration: none;">MedConsult AI</a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li id="authLinks">
+                        <a href="login.html" class="btn-secondary">Login</a>
+                        <a href="signup.html" class="btn">Sign Up</a>
+                    </li>
+                    <li id="userLinks" style="display: none;">
+                        <span style="color: white;">Welcome, <span id="usernameDisplay"></span></span>
+                        <a href="#" onclick="logout()" class="btn-secondary">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h1><i class="fas fa-stethoscope"></i> Symptom Checker</h1>
+            <p>Describe your symptoms in detail to get AI-powered preliminary insights. Please be as specific as possible.</p>
+            
+            <div class="disclaimer" style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; margin: 1rem 0; border-radius: 5px;">
+                <strong><i class="fas fa-exclamation-triangle"></i> Important Disclaimer:</strong>
+                <p>This AI symptom checker provides preliminary insights only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+            </div>
+
+            <form id="symptomForm">
+                <div class="form-group">
+                    <label for="symptoms"><i class="fas fa-comment-medical"></i> Describe Your Symptoms</label>
+                    <textarea id="symptoms" name="symptoms" rows="6" required 
+                              placeholder="Please describe your symptoms in detail. For example: 'I have had a persistent cough and mild fever for two days, along with some body aches.'"
+                              style="width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="fas fa-search"></i> Analyze Symptoms
+                </button>
+            </form>
+
+            <div id="analysisResult" class="hidden"></div>
+        </div>
+
+        <!-- Common Symptoms Guide -->
+        <div class="card tip-card">
+            <h3><i class="fas fa-lightbulb"></i> Tips for Better Analysis</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary-green);"></i> Be specific about when symptoms started</li>
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary-green);"></i> Mention severity (mild, moderate, severe)</li>
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary-green);"></i> Include any other symptoms you're experiencing</li>
+                <li style="margin-bottom: 0.5rem;"><i class="fas fa-check-circle" style="color: var(--primary-green);"></i> Note any medications you're taking</li>
+                <li><i class="fas fa-check-circle" style="color: var(--primary-green);"></i> Mention if symptoms are getting better or worse</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Floating Quote Widget -->
+    <div class="quote-widget" id="quoteWidget">
+        <div class="quote-text" id="quoteText">Your health is your most valuable asset.</div>
+        <div class="quote-category">💡 Health Wisdom</div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Powered by MedConsult AI | SDG 3: Good Health & Well-being</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                <small>For medical emergencies, please contact your local emergency services immediately.</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

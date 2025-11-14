@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedConsult AI - Your Health Assistant</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    MedConsult AI
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="symptom.html">Symptom Checker</a></li>
+                    <li id="authLinks">
+                        <a href="login.html" class="btn-secondary">Login</a>
+                        <a href="signup.html" class="btn">Sign Up</a>
+                    </li>
+                    <li id="userLinks" style="display: none;">
+                        <span style="color: white;">Welcome, <span id="usernameDisplay"></span></span>
+                        <a href="#" onclick="logout()" class="btn-secondary">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to MedConsult AI</h1>
+            <p>Your AI-powered health assistant supporting SDG 3: Good Health and Well-being</p>
+            
+            <!-- Health Tip of the Day -->
+            <div class="tip-of-day">
+                <i class="fas fa-lightbulb"></i> 
+                <span id="tipOfDay">Loading today's health tip...</span>
+            </div>
+            
+            <div class="hero-buttons">
+                <a href="symptom.html" class="btn">
+                    <i class="fas fa-stethoscope"></i> Check Symptoms
+                </a>
+                <a href="#features" class="btn-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Features Section -->
+        <section id="features">
+            <div class="card">
+                <h2>About MedConsult AI</h2>
+                <p>MedConsult AI is an innovative health platform designed to provide preliminary health insights and promote well-being. Our mission aligns with the United Nations Sustainable Development Goal 3: Ensuring healthy lives and promoting well-being for all at all ages.</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div class="feature-item">
+                        <i class="fas fa-brain" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                        <h3>AI-Powered Insights</h3>
+                        <p>Get preliminary health assessments based on your symptoms using our intelligent analysis system.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--primary-green); margin-bottom: 1rem;"></i>
+                        <h3>Privacy First</h3>
+                        <p>Your health data is secure and private. We prioritize your confidentiality.</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-globe-americas" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                        <h3>SDG 3 Alignment</h3>
+                        <p>Contributing to global health and well-being through accessible health technology.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Health Tips Section -->
+        <section id="health-tips">
+            <div class="card tip-card">
+                <h2><i class="fas fa-tips"></i> Daily Health Tips</h2>
+                <div id="healthTips">
+                    <p>Loading health tips...</p>
+                </div>
+                <button onclick="loadHealthTips()" class="btn-secondary" style="margin-top: 1rem;">
+                    <i class="fas fa-sync-alt"></i> Get Another Tip
+                </button>
+            </div>
+        </section>
+
+        <!-- Symptom Checker CTA -->
+        <section id="symptom-cta">
+            <div class="card symptom-card">
+                <h2><i class="fas fa-stethoscope"></i> Not Feeling Well?</h2>
+                <p>Use our AI-powered symptom checker to get preliminary insights about your health concerns. Remember, this is not a substitute for professional medical advice.</p>
+                <a href="symptom.html" class="btn">
+                    <i class="fas fa-search"></i> Check Your Symptoms
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Quote Widget -->
+    <div class="quote-widget" id="quoteWidget">
+        <div class="quote-text" id="quoteText">Your health is your most valuable asset.</div>
+        <div class="quote-category">💡 Health Wisdom</div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Powered by MedConsult AI | SDG 3: Good Health & Well-being</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                <small>Disclaimer: This platform provides preliminary health insights and should not replace professional medical consultation.</small>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

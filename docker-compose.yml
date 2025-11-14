@@ -1,0 +1,34 @@
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-strong_root_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-medconsult_db}
+      MYSQL_USER: ${MYSQL_USER:-meduser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-medpass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - medconsult_mysql:/var/lib/mysql
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${MYSQL_USER:-meduser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-medpass}
+      MYSQL_HOST: ${API_MYSQL_HOST:-mysql}
+      MYSQL_PORT: ${API_MYSQL_PORT:-3306}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-medconsult_db}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+
+volumes:
+  medconsult_mysql:
+
+
