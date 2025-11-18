@@ -1,14 +1,14 @@
 FROM python:3.11-slim
 
-# Set a working directory inside the container
+# Workdir inside container
 WORKDIR /app
 
-# Copy requirements and install (backend context)
-COPY requirements.txt .
+# Copy backend requirements (when build context is repository root)
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the backend into the container (backend context)
-COPY . .
+# Copy backend source
+COPY backend/ .
 
 # Expose port
 EXPOSE 8000
