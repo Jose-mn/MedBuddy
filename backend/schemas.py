@@ -47,3 +47,13 @@ class SymptomResponse(BaseModel):
 class TipResponse(BaseModel):
     tip: str
     category: str
+
+
+class PaymentRequest(BaseModel):
+    user_id: Optional[int]
+    plan_id: Optional[int]
+    plan_name: Optional[str] = None
+    amount: int  # amount in cents (integer)
+
+    class Config:
+        from_attributes = True
