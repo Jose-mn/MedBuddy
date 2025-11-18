@@ -21,7 +21,7 @@ except Exception as e:
     print(f"[DEBUG] Database error: {e}")
 
 app = FastAPI(
-    title="MedConsult AI",
+    title="MedBuddy",
     description="AI-powered health consultation platform aligned with SDG 3",
     version="1.0.0"
 )
@@ -63,7 +63,7 @@ app.include_router(payments_router, prefix="/api", tags=["payments"])
 @app.get("/")
 def read_root():
     return {
-        "message": "Welcome to MedConsult AI - Your Health Assistant",
+        "message": "Welcome to MedBuddy - Your Health Assistant",
         "sdg": "SDG 3: Good Health and Well-being",
         "status": "API is running",
         "docs": "Visit /docs for API documentation"
@@ -71,8 +71,7 @@ def read_root():
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "service": "MedConsult AI"}
-
+    return {"status": "healthy", "service": "MedBuddy"}
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000, reload=True)
