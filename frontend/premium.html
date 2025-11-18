@@ -80,11 +80,15 @@
 
     </div>
   </div>
+
+  <script >
+         window.API_BASE_URL = "https://medbuddy-production-f52a.up.railway.app";
+    </script>
   <script>
 async function pay(plan) {
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/api/payments/create-checkout-session",
+      window.API_BASE_URL + "/api/payments/create-checkout-session",
       {
         method: "POST",
         headers: {
