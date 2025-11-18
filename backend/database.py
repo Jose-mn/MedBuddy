@@ -12,6 +12,7 @@ DB_USER = os.getenv("DB_USER", "root")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "")
 DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_NAME = os.getenv("DB_NAME", "medbuddy_db")
+SECRET_KEY = os.getenv("SECRET_KEY", "sG7!9k2Qx#L8pW4vZ6eR")
 
 # Build database URL from environment variables
 SQLALCHEMY_DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
