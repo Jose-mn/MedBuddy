@@ -59,7 +59,7 @@ app.include_router(auth_router, tags=["auth"])
 app.include_router(symptom_router, tags=["symptom"])
 app.include_router(tips_router, prefix="/api", tags=["tips"])
 app.include_router(premium_router, tags=["premium"])
-app.include_router(payments_router, prefix="/api", tags=["payments"])
+app.include_router(payments_router, tags=["payments"])
 
 
 @app.get("/")
