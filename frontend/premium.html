@@ -63,60 +63,76 @@
       <p class="price">KES 499 / month</p>
       <p>Basic access to AI consultations.</p>
       <button onclick="pay('Bronze')">Buy Bronze</button>
-
     </div>
     <div class="plan">
       <h2>Gold</h2>
       <p class="price">KES 999 / month</p>
       <p>Faster diagnosis + chat priority.</p>
       <button onclick="pay('Gold')">Buy Gold</button>
-
     </div>
     <div class="plan">
       <h2>Diamond</h2>
       <p class="price">KES 1,999 / month</p>
       <p>Unlimited AI consultations + 24/7 support.</p>
       <button onclick="pay('Diamond')">Buy Diamond</button>
-
     </div>
   </div>
 
-   
-
   <script>
-  // Set your backend URL here
-  window.API_BASE_URL = "https://medbuddy-ks9e.onrender.com";
+    // Backend URL
+    const API_BASE_URL = "https://medbuddy-ks9e.onrender.com";
 
-  async function pay(plan) {
-    try {
-      const response = await fetch(
-        window.API_BASE_URL + "/api/payments/create-checkout-session",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan: plan })
-        }
-      );
+    // Map plans to required details
+    const plans = {
+      "Bronze": { plan_id: 1, plan_name: "Bronze Plan", amount: 49900 },
+      "Gold": { plan_id: 2, plan_name: "Gold Plan", amount: 99900 },
+      "Diamond": { plan_id: 3, plan_name: "Diamond Plan", amount: 199900 }
+    };
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        alert("Payment Error: " + (data.detail || "Could not start payment."));
+    async function pay(plan) {
+      const planDetails = plans[plan];
+      if (!planDetails) {
+        alert("Invalid plan selected");
         return;
       }
 
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert("Error: URL not received from backend.");
+      // TODO: Replace with actual logged-in user ID
+      const userId = 1;
+
+      const payload = {
+        user_id: userId,
+        plan_id: planDetails.plan_id,
+        plan_name: planDetails.plan_name,
+        amount: planDetails.amount
+      };
+
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/payments/create-checkout-session`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert("Payment Error: " + (data.detail || "Could not start payment."));
+          return;
+        }
+
+        if (data.checkout_url) {
+          window.location.href = data.checkout_url;
+        } else {
+          alert("Error: Checkout URL not received from backend.");
+        }
+      } catch (err) {
+        alert("Network Error: Backend not reachable.");
+        console.error(err);
       }
-    } catch (err) {
-      alert("Network Error: Backend not reachable.");
-      console.error(err);
     }
-  }
-</script>
-
-
+  </script>
 </body>
 </html>
