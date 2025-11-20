@@ -1,6 +1,6 @@
 // Read API base URL from a global injected variable (set this in production),
 // otherwise fall back to localhost for local development.
-const API_BASE_URL = window.API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = window.API_BASE_URL || 'https://medbuddy-ks9e.onrender.com';
 
 if (!window.API_BASE_URL) {
     console.warn('API_BASE_URL not found on window. Using fallback:', API_BASE_URL);
