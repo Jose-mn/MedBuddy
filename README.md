@@ -1,8 +1,8 @@
-# MedBuddy
+MedBuddy
 
 MedBuddy is an AI-assisted health consultation platform with a FastAPI backend and static HTML/CSS/JavaScript frontend. It provides symptom checking, user authentication with JWT tokens, health tips, and Stripe-based premium plans.
 
-View the project online:
+View the Project Online
 
 Frontend: https://med-buddy-delta.vercel.app/
 
@@ -33,6 +33,8 @@ Troubleshooting
 Quick Test with cURL
 
 Helper Files
+
+Security Notes
 
 Features
 
@@ -97,11 +99,12 @@ Visit http://127.0.0.1:8000/docs
 
 8. Start the frontend
 
-Open frontend/index.html with Live Server (VS Code extension) or any local server at http://127.0.0.1:5500/
+Open frontend/index.html with Live Server (VS Code extension) or any local server at http://127.0.0.1:5500/.
 
 Development Setup
 
 Backend working directory: d:\Medbuddy\backend
+
 Frontend files: d:\Medbuddy\frontend
 
 Virtual environment commands (Windows):
@@ -136,7 +139,7 @@ Run the initialization script:
 python init_db.py
 
 
-⚠️ init_db.py drops and recreates tables — use only in development.
+⚠️ Note: init_db.py drops and recreates tables — use only in development.
 
 Environment Variables
 
@@ -168,7 +171,7 @@ uvicorn main:app --host 127.0.0.1 --port 8000 --reload
 
 Server starts on http://127.0.0.1:8000
 
-API docs available at http://127.0.0.1:8000/docs
+API docs at /docs
 
 Database tables created if first run
 
@@ -178,7 +181,9 @@ Running the Frontend
 
 Option A: Live Server (VS Code)
 
-Right-click frontend/ → Open with Live Server → Opens at http://127.0.0.1:5500/
+Right-click frontend/ → Open with Live Server
+
+Opens at http://127.0.0.1:5500/
 
 Option B: Python built-in server
 
@@ -186,6 +191,7 @@ cd frontend
 python -m http.server 5500
 
 API Endpoints
+
 Authentication
 
 POST /auth/signup — Create user
@@ -274,7 +280,10 @@ Run FastAPI behind production server
 
 Input validation & rate limiting
 
-- The backend is a prototype/demo and is **not production-hardened**.
-- Always use the virtual environment Python to avoid missing package errors.
-- CORS is configured to allow `http://127.0.0.1:5500` (Live Server) during development.
-- The `.gitignore` file protects sensitive files from being committed.
+The backend is a prototype/demo and is not production-hardened
+
+Always use the virtual environment Python to avoid missing package errors
+
+CORS is configured for http://127.0.0.1:5500 (Live Server) during development
+
+The .gitignore file protects sensitive files from being committed
