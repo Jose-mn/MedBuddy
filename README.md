@@ -4,7 +4,7 @@ MedBuddy is an AI-assisted health consultation platform with a FastAPI backend a
 
 View the project online:
 
-Frontend: med-buddy-delta.vercel.app
+Frontend: https://med-buddy-delta.vercel.app/
 
 Backend: https://medbuddy-ks9e.onrender.com
 
